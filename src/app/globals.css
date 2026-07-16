@@ -418,3 +418,136 @@
   .postcorp-chat-identity small{font-size:10px}
   .postcorp-chat-bubble{max-width:94%;font-size:12px}
 }
+
+/* =========================================================
+   FINAL CHATBOT POSITIONING AND MENU COORDINATION
+========================================================= */
+.postcorp-chatbot-root{
+  position:fixed;
+  inset:0;
+  z-index:1200;
+  pointer-events:none;
+}
+.postcorp-chatbot-root .postcorp-chat-launcher,
+.postcorp-chatbot-root .postcorp-chat-window,
+.postcorp-chatbot-root .postcorp-chat-backdrop{
+  pointer-events:auto;
+}
+.postcorp-chat-backdrop{
+  z-index:1200 !important;
+}
+.postcorp-chat-window{
+  z-index:1201 !important;
+}
+.postcorp-chat-launcher{
+  z-index:1202 !important;
+}
+body.postcorp-mobile-menu-open .postcorp-chatbot-root{
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+
+@media(max-width:600px){
+  .postcorp-chat-backdrop{
+    position:fixed !important;
+    inset:0 !important;
+    background:rgba(17,22,27,.40) !important;
+    backdrop-filter:blur(2px);
+  }
+
+  .postcorp-chat-window{
+    position:fixed !important;
+    top:auto !important;
+    left:10px !important;
+    right:10px !important;
+    bottom:82px !important;
+    width:auto !important;
+    max-width:none !important;
+    height:min(68dvh,520px) !important;
+    max-height:calc(100dvh - 112px) !important;
+    margin:0 !important;
+    transform:none !important;
+    border-radius:16px !important;
+    overflow:hidden !important;
+    grid-template-rows:auto minmax(0,1fr) auto auto auto !important;
+  }
+
+  .postcorp-chat-header{
+    min-height:62px !important;
+    padding:9px 11px !important;
+  }
+
+  .postcorp-chat-avatar{
+    width:37px !important;
+    height:37px !important;
+  }
+
+  .postcorp-chat-close{
+    display:grid !important;
+    width:38px !important;
+    height:38px !important;
+    pointer-events:auto !important;
+  }
+
+  .postcorp-chat-messages{
+    min-height:0 !important;
+    overflow-y:auto !important;
+    padding:11px !important;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .postcorp-chat-quick-actions{
+    padding:7px 8px !important;
+  }
+
+  .postcorp-chat-input{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) 44px !important;
+    gap:7px !important;
+    padding:8px !important;
+  }
+
+  .postcorp-chat-input input{
+    display:block !important;
+    width:100% !important;
+    min-width:0 !important;
+    height:44px !important;
+    font-size:16px !important;
+    pointer-events:auto !important;
+  }
+
+  .postcorp-chat-input button{
+    width:44px !important;
+    height:44px !important;
+    pointer-events:auto !important;
+  }
+
+  .postcorp-chat-whatsapp-footer{
+    min-height:30px !important;
+    padding:5px 8px !important;
+  }
+
+  .postcorp-chat-launcher{
+    right:14px !important;
+    bottom:14px !important;
+    width:56px !important;
+    height:56px !important;
+  }
+
+  .postcorp-chat-launcher.open{
+    display:none !important;
+  }
+}
+
+@media(max-width:380px){
+  .postcorp-chat-window{
+    left:7px !important;
+    right:7px !important;
+    bottom:76px !important;
+    height:min(66dvh,485px) !important;
+  }
+
+  .postcorp-chat-identity strong{font-size:14px !important}
+  .postcorp-chat-identity small{font-size:10px !important}
+  .postcorp-chat-bubble{max-width:94% !important;font-size:12px !important}
+}

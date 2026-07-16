@@ -1,0 +1,9 @@
+POSTCORP CHATBOT POSITION FIX
+
+- Chatbot is rendered directly under document.body using a React portal.
+- On phones it opens above the launcher, with 10px spacing from both screen edges.
+- It is limited to 68% of the dynamic viewport height and remains fully visible.
+- The close button and backdrop return the visitor to the page.
+- Opening the mobile menu closes and hides the chatbot.
+- Opening the chatbot closes the mobile menu.
+- The typing field remains fixed inside the bottom of the chatbot.

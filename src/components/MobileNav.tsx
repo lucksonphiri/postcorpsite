@@ -19,11 +19,24 @@ export default function MobileNav() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    document.body.classList.toggle("postcorp-mobile-menu-open", open);
     document.body.style.overflow = open ? "hidden" : "";
+
+    if (open) {
+      window.dispatchEvent(new CustomEvent("postcorp:mobile-menu-open"));
+    }
+
     return () => {
+      document.body.classList.remove("postcorp-mobile-menu-open");
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  useEffect(() => {
+    const closeForChat = () => setOpen(false);
+    window.addEventListener("postcorp:chat-open", closeForChat);
+    return () => window.removeEventListener("postcorp:chat-open", closeForChat);
+  }, []);
 
   useEffect(() => {
     const closeOnDesktop = () => {
