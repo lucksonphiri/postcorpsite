@@ -1,0 +1,6 @@
+POSTCORP FULL UPDATE
+
+1. Chatbot remains visible on mobile, includes a usable text input, quick questions and WhatsApp fallback.
+2. Chatbot answers common questions about Postcorp services, products, branches, projects, quotations, careers and contact details.
+3. Unknown questions are redirected to WhatsApp: +263 77 295 7823.
+4. All internal page hero sections now use suitable photographic backgrounds with readable overlays.
