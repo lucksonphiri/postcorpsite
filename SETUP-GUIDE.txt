@@ -1,0 +1,14 @@
+POSTCORP WEBSITE QUICK SETUP
+
+1. Extract this ZIP.
+2. Open the extracted folder in Visual Studio Code.
+3. Open Terminal and run: npm install
+4. Rename or copy .env.example to .env.local
+5. Create a PostgreSQL database (Neon is suitable).
+6. Paste its connection string after DATABASE_URL= in .env.local
+7. Replace JWT_SECRET with a long random value.
+8. Choose ADMIN_EMAIL and ADMIN_PASSWORD.
+9. Run: npm run db:init
+10. Run: npm run dev
+11. Website: http://localhost:3000
+12. Admin: http://localhost:3000/admin

@@ -1,0 +1,1 @@
+export default function PageHero({title,eyebrow="Postcorp Glass & Aluminium",text}:{title:string;eyebrow?:string;text?:string}){return <section className="page-hero"><div className="container"><div className="eyebrow">{eyebrow}</div><h1>{title}</h1>{text&&<p style={{maxWidth:720,color:'#bbb',fontSize:18}}>{text}</p>}<div className="redline"/></div></section>}
