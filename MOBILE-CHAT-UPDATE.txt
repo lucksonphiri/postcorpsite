@@ -1,0 +1,9 @@
+POSTCORP MOBILE CHAT UPDATE
+
+- Mobile chatbot now opens as a dedicated /chat page.
+- Desktop retains the floating bottom-right chatbot.
+- Mobile chat includes Back and Close buttons.
+- The message area scrolls independently.
+- The input remains fixed above the footer and works with the mobile keyboard.
+- Unknown questions redirect clients to WhatsApp.
+- The chat page has no mobile navigation overlay, avoiding menu conflicts.
