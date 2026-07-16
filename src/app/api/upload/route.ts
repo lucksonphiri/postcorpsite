@@ -56,8 +56,7 @@ export async function POST(request: Request) {
       if (!allowedTypes.has(file.type)) continue;
       if (file.size > 10 * 1024 * 1024) continue;
 
-      const storageFolder = file.type.startsWith('image/') ? 'public/images' : 'public/documents';
-      const blob = await put(`${storageFolder}/${safeFileName(file.name)}`, file, {
+      const blob = await put(`images/${safeFileName(file.name)}`, file, {
         access: 'public',
         addRandomSuffix: true,
         contentType: file.type || undefined,

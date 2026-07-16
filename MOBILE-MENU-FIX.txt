@@ -1,0 +1,11 @@
+MOBILE MENU FIX
+
+This version fixes the mobile navigation panel so that all menu items remain visible and clickable after the menu button is opened.
+
+Changes:
+- Added explicit mobile menu text colours and visibility rules.
+- Added reliable overlay and panel z-index values.
+- Added accessible open/close controls.
+- Added automatic menu closing when switching back to desktop view.
+- Added full-width mobile menu support on small phones.
+- Preserved Call Us, WhatsApp and Request a Quote buttons.

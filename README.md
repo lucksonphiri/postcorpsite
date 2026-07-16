@@ -33,11 +33,7 @@ Deploy to Vercel, add the same environment variables in Project Settings, and ru
 
 ## Media management
 
-- Existing design assets remain in the project under `public/images`.
-- New images selected from the administrator dashboard are uploaded online to Vercel Blob under the `public/images/` prefix.
-- Uploaded PDF, DOC and DOCX files are stored under the `public/documents/` prefix.
-- The database stores the returned public Blob URL, so the files remain available after deployment and are not tied to one computer.
-- Administrators can delete or replace old uploaded files from the CMS.
+The starter CMS accepts image and document URLs. Images supplied with this project are already under `public/images`. For production uploads, connect Cloudinary, Vercel Blob, AWS S3 or another persistent object-storage provider; do not rely on writing uploaded files to the Vercel filesystem.
 
 ## Security notes
 
@@ -50,11 +46,11 @@ Deploy to Vercel, add the same environment variables in Project Settings, and ru
 ## Version 3 improvements
 - Responsive slide-in mobile menu.
 - Logout returns directly to the public home page.
-- Admin file picker uploads images to Vercel Blob under `public/images/` and documents under `public/documents/`.
+- Admin file picker uploads images and PDFs into `public/images`.
 - Existing uploaded files and content can be deleted or replaced.
 - Admin content is displayed as attractive preview cards instead of a plain table.
 - Products and projects support multiple gallery images.
 - Administrators can create Content Editor accounts from Admin > Users.
 
 ### Important hosting note
-The CMS uses Vercel Blob for new uploads. It does not write uploaded files to the local or deployed Next.js filesystem. Configure `BLOB_READ_WRITE_TOKEN` before testing uploads.
+Saving directly into `public/images` works on a local computer and a persistent Node.js/VPS server. Serverless hosts such as Vercel use temporary filesystems, so production uploads there should later be connected to persistent cloud storage such as Cloudinary, Vercel Blob, S3 or UploadThing.

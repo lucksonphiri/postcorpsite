@@ -20,7 +20,5 @@ VERCEL BLOB STORAGE
 3. Connect the Blob store to the project.
 4. Vercel adds BLOB_READ_WRITE_TOKEN automatically to the selected environments.
 5. For local testing, copy the token into .env.local.
-6. Uploaded images are stored online in Vercel Blob under the public/images/ prefix.
-7. Uploaded documents are stored online under the public/documents/ prefix.
-8. The CMS stores the returned public Blob URL in PostgreSQL.
-9. Uploaded files can be deleted or replaced from the administrator dashboard.
+6. Uploaded images and documents are stored online in Vercel Blob under the images/ prefix.
+7. Do not save uploaded content in public/images on Vercel because the deployment filesystem is temporary.
