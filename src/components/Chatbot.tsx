@@ -107,7 +107,14 @@ export default function Chatbot() {
   return (
     <div className="postcorp-chatbot-root">
       {open && (
-        <section className="postcorp-chat-window" aria-label="Postcorp chatbot">
+        <>
+          <button
+            type="button"
+            className="postcorp-chat-backdrop"
+            onClick={() => setOpen(false)}
+            aria-label="Close chatbot"
+          />
+          <section className="postcorp-chat-window" aria-label="Postcorp chatbot">
           <header className="postcorp-chat-header">
             <div className="postcorp-chat-identity">
               <span className="postcorp-chat-avatar">
@@ -175,7 +182,8 @@ export default function Chatbot() {
           <a className="postcorp-chat-whatsapp-footer" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
             WhatsApp: +263 77 295 7823
           </a>
-        </section>
+          </section>
+        </>
       )}
 
       <button
