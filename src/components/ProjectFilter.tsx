@@ -1,0 +1,2 @@
+'use client';import {useState} from 'react';import {ContentCards} from './Cards';
+export default function ProjectFilter({items}:{items:any[]}){const cats=['All',...Array.from(new Set(items.map(x=>x.category).filter(Boolean)))];const[cat,setCat]=useState('All');const filtered=cat==='All'?items:items.filter(x=>x.category===cat);return <><div className="filter-bar">{cats.map(c=><button key={c} className={cat===c?'active':''} onClick={()=>setCat(c)}>{c}</button>)}</div><ContentCards items={filtered}/></>}

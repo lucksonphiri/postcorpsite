@@ -1,0 +1,4 @@
+'use client';import {useState} from 'react';
+function urls(x:any){return [x.image_url,...String(x.gallery_urls||'').split(/\r?\n|,/)].filter(Boolean)}
+export default function ProductCards({items}:{items:any[]}){return <div className="grid grid-3">{items.map(x=><Product key={x.id} x={x}/>)}</div>}
+function Product({x}:{x:any}){const pics=urls(x);const[i,setI]=useState(0);return <article className="card product-card">{pics[0]&&<div className="product-image"><img src={pics[i]} alt={x.title}/>{pics.length>1&&<><button className="prev" onClick={()=>setI((i-1+pics.length)%pics.length)}>‹</button><button className="next" onClick={()=>setI((i+1)%pics.length)}>›</button><div className="dots">{pics.map((_:any,j:number)=><span key={j} className={j===i?'active':''}/>)}</div></>}</div>}<div className="card-body"><div className="eyebrow tiny">{x.category||'Product'}</div><h3>{x.title}</h3><p>{x.summary||x.description}</p></div></article>}

@@ -1,0 +1,21 @@
+POSTCORP WEBSITE VERSION 2 CHANGES
+
+1. Full-height rotating hero slider with improved animations.
+2. Sticky navigation retained and redesigned.
+3. Working clickable mobile navigation menu.
+4. Project category filters.
+5. Admin file-picker upload buttons for images and documents.
+6. Multiple product images using gallery_urls (one image per line).
+7. Gallery full-screen lightbox.
+8. Expanded dashboard statistics.
+9. Google Maps embeds and Open Exact Location links for all three branches.
+10. Brighter charcoal backgrounds and improved text contrast.
+11. Administrator can create Content Editor users under Admin > Users.
+12. All social links open in a new tab.
+13. Improved social-media top panel.
+
+DATABASE UPDATE
+Run npm run db:init again after replacing the project. The schema safely adds the products.gallery_urls column with ALTER TABLE IF NOT EXISTS.
+
+UPLOAD NOTE
+Local uploads are saved in public/uploads. This works locally and on a traditional Node/VPS deployment. For Vercel production, connect cloud storage such as Vercel Blob or Cloudinary because Vercel server storage is temporary.

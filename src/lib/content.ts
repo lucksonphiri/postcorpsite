@@ -2,7 +2,7 @@ export type ModuleKey = "slides"|"services"|"products"|"projects"|"news"|"galler
 export const modules: Record<ModuleKey,{title:string;table:string;fields:string[]}> = {
  slides:{title:"Home Slides",table:"slides",fields:["title","subtitle","image_url","button_text","button_url","display_order","is_active"]},
  services:{title:"Services",table:"services",fields:["title","slug","summary","description","image_url","icon","display_order","is_featured","is_active"]},
- products:{title:"Products",table:"products",fields:["title","slug","category","summary","description","image_url","features","is_featured","is_active"]},
+ products:{title:"Products",table:"products",fields:["title","slug","category","summary","description","image_url","gallery_urls","features","is_featured","is_active"]},
  projects:{title:"Projects",table:"projects",fields:["title","slug","client","location","category","year","summary","description","image_url","gallery_urls","is_featured","is_active"]},
  news:{title:"News",table:"news",fields:["title","slug","excerpt","body","image_url","published_at","is_featured","is_active"]},
  gallery:{title:"Gallery",table:"gallery_items",fields:["title","category","image_url","description","display_order","is_active"]},

@@ -1,0 +1,3 @@
+'use client';import Link from 'next/link';import {useState} from 'react';
+const links=[['/','Home'],['/about','About'],['/services','Services'],['/products','Products'],['/projects','Projects'],['/gallery','Gallery'],['/news','News'],['/contact','Contact']];
+export default function MobileNav(){const[open,setOpen]=useState(false);return <><button className="mobile-menu" aria-label="Toggle navigation" onClick={()=>setOpen(!open)}>{open?'✕':'☰'} Menu</button><nav className={'mobile-nav '+(open?'open':'')}>{links.map(([h,l])=><Link key={h} href={h} onClick={()=>setOpen(false)}>{l}</Link>)}<Link className="btn btn-red" href="/quote" onClick={()=>setOpen(false)}>Request a Quote</Link></nav></>}
