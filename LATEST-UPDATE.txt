@@ -1,0 +1,8 @@
+POSTCORP LATEST UPDATE
+
+1. The Contact page uses responsive text-based branch cards rather than the old contact-number image.
+2. Harare, Masvingo and Bulawayo details include phone, email, hours and Google Maps links.
+3. Administrator-selected images upload online to Vercel Blob under public/images/.
+4. Documents upload under public/documents/.
+5. Uploaded Blob files can be deleted or replaced from the CMS.
+6. Social-media links retain their respective icons and open in a new tab.

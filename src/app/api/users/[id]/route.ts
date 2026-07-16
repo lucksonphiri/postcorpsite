@@ -1,0 +1,2 @@
+import {NextResponse} from 'next/server';import {getSession} from '@/lib/auth';import {sql} from '@/lib/db';
+export async function DELETE(_:Request,{params}:{params:Promise<{id:string}>}){const s=await getSession();if(!s||s.role!=='administrator')return NextResponse.json({error:'Forbidden'},{status:403});const{id}=await params;if(Number(id)===s.id)return NextResponse.json({error:'You cannot delete your own account'},{status:400});await sql`DELETE FROM users WHERE id=${id}`;return NextResponse.json({ok:true})}

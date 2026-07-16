@@ -1,0 +1,24 @@
+POSTCORP VERSION 3.1 - ADMIN JSON FIX
+
+This version fixes the Runtime SyntaxError:
+Failed to execute 'json' on 'Response': Unexpected end of JSON input.
+
+Corrected files:
+- src/components/AdminCMS.tsx
+- src/app/api/content/[module]/route.ts
+- src/app/api/content/[module]/[id]/route.ts
+- src/app/api/upload/route.ts
+
+The admin dashboard now:
+- Safely handles empty and invalid API responses.
+- Displays a useful error instead of crashing.
+- Always receives JSON from content API routes.
+- Handles upload, save and delete errors correctly.
+- Allows JPG, PNG, WEBP, GIF, PDF, DOC and DOCX uploads below 10 MB.
+- Preserves existing multiple image URLs when more pictures are added.
+
+SETUP
+1. Copy your existing .env.local file into this folder.
+2. Run: npm install --no-audit --no-fund
+3. Run: npm run db:init
+4. Run: npm run dev
