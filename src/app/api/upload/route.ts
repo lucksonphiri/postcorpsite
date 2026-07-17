@@ -4,131 +4,133 @@ import { NextRequest, NextResponse } from "next/server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const allowedImageTypes = [
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+
+const ALLOWED_IMAGE_TYPES = [
   "image/jpeg",
-  "image/jpg",
   "image/png",
   "image/webp",
   "image/gif",
 ];
 
-const allowedDocumentTypes = [
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-];
+function cleanFileName(fileName: string): string {
+  const extensionIndex = fileName.lastIndexOf(".");
 
-function sanitiseFileName(fileName: string) {
-  return fileName
+  const extension =
+    extensionIndex >= 0
+      ? fileName.substring(extensionIndex).toLowerCase()
+      : "";
+
+  const nameWithoutExtension =
+    extensionIndex >= 0
+      ? fileName.substring(0, extensionIndex)
+      : fileName;
+
+  const safeName = nameWithoutExtension
     .trim()
     .toLowerCase()
-    .replace(/[^a-z0-9._-]+/g, "-")
-    .replace(/-+/g, "-");
+    .replace(/[^a-z0-9-_]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  return `${safeName || "image"}${extension}`;
 }
 
 export async function POST(request: NextRequest) {
   try {
     if (!process.env.BLOB_READ_WRITE_TOKEN) {
-      console.error("BLOB_READ_WRITE_TOKEN is missing.");
+      console.error(
+        "Upload failed because BLOB_READ_WRITE_TOKEN is missing."
+      );
 
       return NextResponse.json(
         {
           success: false,
           error:
-            "The online file store is not configured. Add BLOB_READ_WRITE_TOKEN in Vercel and redeploy.",
+            "Vercel Blob is not configured. Add BLOB_READ_WRITE_TOKEN in Vercel and redeploy the website.",
         },
         { status: 500 }
       );
     }
 
     const formData = await request.formData();
-    const uploadedFile = formData.get("file");
+    const fileValue = formData.get("file");
 
-    if (!(uploadedFile instanceof File)) {
+    if (!(fileValue instanceof File)) {
       return NextResponse.json(
         {
           success: false,
-          error: "No valid file was received.",
+          error: "No image file was received.",
         },
         { status: 400 }
       );
     }
 
-    if (uploadedFile.size === 0) {
+    if (fileValue.size <= 0) {
       return NextResponse.json(
         {
           success: false,
-          error: "The selected file is empty.",
+          error: "The selected image is empty.",
         },
         { status: 400 }
       );
     }
 
-    const maximumSize = 10 * 1024 * 1024;
-
-    if (uploadedFile.size > maximumSize) {
+    if (fileValue.size > MAX_FILE_SIZE) {
       return NextResponse.json(
         {
           success: false,
-          error: "The file must be smaller than 10 MB.",
+          error: "The selected image must be smaller than 10 MB.",
         },
         { status: 400 }
       );
     }
 
-    const isImage = allowedImageTypes.includes(uploadedFile.type);
-    const isDocument = allowedDocumentTypes.includes(uploadedFile.type);
-
-    if (!isImage && !isDocument) {
+    if (!ALLOWED_IMAGE_TYPES.includes(fileValue.type)) {
       return NextResponse.json(
         {
           success: false,
-          error:
-            "Only JPG, PNG, WEBP, GIF, PDF, DOC and DOCX files are allowed.",
+          error: "Only JPG, PNG, WEBP and GIF images are allowed.",
         },
         { status: 400 }
       );
     }
 
-    const folder = isImage ? "public/images" : "public/documents";
-    const safeName = sanitiseFileName(uploadedFile.name);
-    const uniqueName = `${Date.now()}-${crypto.randomUUID()}-${safeName}`;
+    const safeFileName = cleanFileName(fileValue.name);
 
-    const blob = await put(
-      `${folder}/${uniqueName}`,
-      uploadedFile,
-      {
-        access: "public",
-        addRandomSuffix: false,
-        contentType: uploadedFile.type,
-      }
-    );
+    const pathname = [
+      "products",
+      `${Date.now()}-${crypto.randomUUID()}-${safeFileName}`,
+    ].join("/");
 
-    return NextResponse.json({
-      success: true,
-
-      // Keep all these fields for compatibility with different admin forms.
-      url: blob.url,
-      image_url: blob.url,
-      file_url: blob.url,
-
-      pathname: blob.pathname,
-      contentType: blob.contentType,
-      size: uploadedFile.size,
-      originalName: uploadedFile.name,
+    const blob = await put(pathname, fileValue, {
+      access: "public",
+      addRandomSuffix: false,
+      contentType: fileValue.type,
     });
-  } catch (error) {
-    console.error("Vercel Blob upload error:", error);
 
-    const message =
-      error instanceof Error
-        ? error.message
-        : "The file could not be uploaded.";
+    return NextResponse.json(
+      {
+        success: true,
+        url: blob.url,
+        image_url: blob.url,
+        pathname: blob.pathname,
+        content_type: blob.contentType,
+        original_name: fileValue.name,
+        size: fileValue.size,
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Product image upload error:", error);
 
     return NextResponse.json(
       {
         success: false,
-        error: message,
+        error:
+          error instanceof Error
+            ? error.message
+            : "The image could not be uploaded.",
       },
       { status: 500 }
     );
