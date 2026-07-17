@@ -36,12 +36,13 @@ export async function PUT(
     const setClause = fields
       .map((field, index) => `${field}=$${index + 1}`)
       .join(',');
-
-    const rows = await sql.query(
-      `UPDATE ${config.table} SET ${setClause}, updated_at=NOW() WHERE id=$${fields.length + 1} RETURNING *`,
-      [...values, id],
-    );
-
+const rows = await sql(
+  `UPDATE ${config.table}
+   SET ${setClause}, updated_at = NOW()
+   WHERE id = $${fields.length + 1}
+   RETURNING *`,
+  [...values, id],
+);
     if (!rows?.[0]) {
       return NextResponse.json({ error: 'Content not found.' }, { status: 404 });
     }
@@ -72,7 +73,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Invalid module.' }, { status: 404 });
     }
 
-    await sql.query(`DELETE FROM ${modules[key].table} WHERE id=$1`, [id]);
+    await sql(`DELETE FROM ${modules[key].table} WHERE id=$1`, [id]);
 
     return NextResponse.json({ ok: true });
   } catch (error: any) {

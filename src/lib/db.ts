@@ -1,3 +1,11 @@
 import { neon } from "@neondatabase/serverless";
-if (!process.env.DATABASE_URL) console.warn("DATABASE_URL is not configured");
-export const sql: any = neon(process.env.DATABASE_URL || "postgresql://user:password@localhost:5432/postcorp");
+
+const databaseUrl = process.env.DATABASE_URL;
+
+if (!databaseUrl) {
+  throw new Error(
+    "DATABASE_URL is missing from the environment variables.",
+  );
+}
+
+export const sql = neon(databaseUrl);
