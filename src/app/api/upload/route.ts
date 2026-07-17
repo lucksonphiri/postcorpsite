@@ -1,86 +1,136 @@
-import { put } from '@vercel/blob';
-import { NextResponse } from 'next/server';
-import { getSession } from '@/lib/auth';
-import path from 'node:path';
+import { put } from "@vercel/blob";
+import { NextRequest, NextResponse } from "next/server";
 
-const allowedTypes = new Set([
-  'image/jpeg',
-  'image/png',
-  'image/webp',
-  'image/gif',
-  'application/pdf',
-  'application/msword',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-]);
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-function safeFileName(originalName: string) {
-  const extension = path.extname(originalName).toLowerCase();
-  const base = path
-    .basename(originalName, extension)
-    .replace(/[^a-z0-9-]/gi, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-    .toLowerCase();
+const allowedImageTypes = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+];
 
-  return `${base || 'upload'}${extension || ''}`;
+const allowedDocumentTypes = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+
+function sanitiseFileName(fileName: string) {
+  return fileName
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9._-]+/g, "-")
+    .replace(/-+/g, "-");
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    if (!(await getSession())) {
-      return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 });
-    }
-
     if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      console.error("BLOB_READ_WRITE_TOKEN is missing.");
+
       return NextResponse.json(
         {
+          success: false,
           error:
-            'Vercel Blob is not configured. Add BLOB_READ_WRITE_TOKEN to .env.local and to the Vercel project environment variables.',
+            "The online file store is not configured. Add BLOB_READ_WRITE_TOKEN in Vercel and redeploy.",
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
-    const form = await request.formData();
-    const files = form
-      .getAll('files')
-      .filter((value): value is File => value instanceof File);
+    const formData = await request.formData();
+    const uploadedFile = formData.get("file");
 
-    if (!files.length) {
-      return NextResponse.json({ error: 'No files were selected.' }, { status: 400 });
-    }
-
-    const urls: string[] = [];
-
-    for (const file of files) {
-      if (!allowedTypes.has(file.type)) continue;
-      if (file.size > 10 * 1024 * 1024) continue;
-
-      const blob = await put(`images/${safeFileName(file.name)}`, file, {
-        access: 'public',
-        addRandomSuffix: true,
-        contentType: file.type || undefined,
-      });
-
-      urls.push(blob.url);
-    }
-
-    if (!urls.length) {
+    if (!(uploadedFile instanceof File)) {
       return NextResponse.json(
         {
-          error:
-            'No supported files were uploaded. Use JPG, PNG, WEBP, GIF, PDF, DOC or DOCX files below 10 MB.',
+          success: false,
+          error: "No valid file was received.",
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
-    return NextResponse.json({ urls });
-  } catch (error: any) {
-    console.error('Blob upload error:', error);
+    if (uploadedFile.size === 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "The selected file is empty.",
+        },
+        { status: 400 }
+      );
+    }
+
+    const maximumSize = 10 * 1024 * 1024;
+
+    if (uploadedFile.size > maximumSize) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "The file must be smaller than 10 MB.",
+        },
+        { status: 400 }
+      );
+    }
+
+    const isImage = allowedImageTypes.includes(uploadedFile.type);
+    const isDocument = allowedDocumentTypes.includes(uploadedFile.type);
+
+    if (!isImage && !isDocument) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "Only JPG, PNG, WEBP, GIF, PDF, DOC and DOCX files are allowed.",
+        },
+        { status: 400 }
+      );
+    }
+
+    const folder = isImage ? "public/images" : "public/documents";
+    const safeName = sanitiseFileName(uploadedFile.name);
+    const uniqueName = `${Date.now()}-${crypto.randomUUID()}-${safeName}`;
+
+    const blob = await put(
+      `${folder}/${uniqueName}`,
+      uploadedFile,
+      {
+        access: "public",
+        addRandomSuffix: false,
+        contentType: uploadedFile.type,
+      }
+    );
+
+    return NextResponse.json({
+      success: true,
+
+      // Keep all these fields for compatibility with different admin forms.
+      url: blob.url,
+      image_url: blob.url,
+      file_url: blob.url,
+
+      pathname: blob.pathname,
+      contentType: blob.contentType,
+      size: uploadedFile.size,
+      originalName: uploadedFile.name,
+    });
+  } catch (error) {
+    console.error("Vercel Blob upload error:", error);
+
+    const message =
+      error instanceof Error
+        ? error.message
+        : "The file could not be uploaded.";
+
     return NextResponse.json(
-      { error: error?.message || 'Upload failed.' },
-      { status: 500 },
+      {
+        success: false,
+        error: message,
+      },
+      { status: 500 }
     );
   }
 }
