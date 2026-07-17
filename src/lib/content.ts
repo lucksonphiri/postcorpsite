@@ -5,7 +5,7 @@ export const modules: Record<ModuleKey,{title:string;table:string;fields:string[
  products:{title:"Products",table:"products",fields:["title","slug","category","summary","description","image_url","gallery_urls","features","is_featured","is_active"]},
  projects:{title:"Projects",table:"projects",fields:["title","slug","client","location","category","year","summary","description","image_url","gallery_urls","is_featured","is_active"]},
  news:{title:"News",table:"news",fields:["title","slug","excerpt","body","image_url","published_at","is_featured","is_active"]},
- gallery:{title:"Gallery",table:"gallery_items",fields:["title","category","image_url","description","display_order","is_active"]},
+ gallery:{title:"Gallery",table:"gallery_images",fields:["title","category","image_url","description","display_order","is_active"]},
  testimonials:{title:"Testimonials",table:"testimonials",fields:["client_name","company","quote","image_url","display_order","is_active"]},
  clients:{title:"Clients",table:"clients",fields:["name","logo_url","website_url","display_order","is_active"]},
  downloads:{title:"Downloads",table:"downloads",fields:["title","category","file_url","description","display_order","is_active"]},

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@/lib/db";
+import { getSession } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +17,7 @@ const modules: Record<string, ModuleConfig> = {
     "subtitle",
     "image_url",
     "button_text",
-    "button_link",
+    "button_url",
     "display_order",
     "is_active",
   ],
@@ -114,7 +115,7 @@ const modules: Record<string, ModuleConfig> = {
     allowedFields: [
       "name",
       "logo_url",
-      "website",
+      "website_url",
       "display_order",
       "is_active",
     ],
@@ -137,9 +138,9 @@ const modules: Record<string, ModuleConfig> = {
     allowedFields: [
       "title",
       "location",
-      "type",
-      "closing_date",
-      "summary",
+      "employment_type",
+      "deadline",
+      "requirements",
       "description",
       "is_active",
     ],
@@ -150,7 +151,8 @@ const modules: Record<string, ModuleConfig> = {
     allowedFields: [
       "name",
       "address",
-      "phones",
+      "phone_primary",
+      "phone_secondary",
       "email",
       "map_url",
       "display_order",
@@ -413,6 +415,10 @@ export async function GET(
   context: { params: Promise<{ module: string }> },
 ) {
   try {
+    if (!(await getSession())) {
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+    }
+
     const { module } = await context.params;
     const config = getModuleConfig(module);
 
@@ -465,6 +471,10 @@ export async function POST(
   context: { params: Promise<{ module: string }> },
 ) {
   try {
+    if (!(await getSession())) {
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+    }
+
     const { module } = await context.params;
     const config = getModuleConfig(module);
 

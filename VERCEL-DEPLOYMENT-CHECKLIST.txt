@@ -1,0 +1,13 @@
+POSTCORP VERCEL DEPLOYMENT CHECKLIST
+
+1. Vercel Project > Storage: create/connect a Blob store to this exact project.
+2. Vercel Project > Settings > Environment Variables:
+   DATABASE_URL
+   JWT_SECRET
+   BLOB_READ_WRITE_TOKEN
+   Set each for Production (and Preview if used).
+3. Push this project to GitHub or import this folder into Vercel.
+4. Framework preset: Next.js. Build command: npm run build. Output directory: leave blank.
+5. Redeploy after changing environment variables.
+6. In the admin Products page, choose an image. The original CMS design is retained.
+   The upload route accepts the CMS field name "files" and also the legacy field name "file".

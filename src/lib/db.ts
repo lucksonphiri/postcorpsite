@@ -1,11 +1,22 @@
-import { neon } from "@neondatabase/serverless";
+import { neon } from '@neondatabase/serverless';
 
-const databaseUrl = process.env.DATABASE_URL;
+let client: ReturnType<typeof neon> | null = null;
 
-if (!databaseUrl) {
-  throw new Error(
-    "DATABASE_URL is missing from the environment variables.",
-  );
+function getClient() {
+  const databaseUrl = process.env.DATABASE_URL;
+
+  if (!databaseUrl) {
+    throw new Error(
+      'DATABASE_URL is missing. Add it in .env.local for localhost and in Vercel Project Settings > Environment Variables for deployment.',
+    );
+  }
+
+  if (!client) {
+    client = neon(databaseUrl);
+  }
+
+  return client;
 }
 
-export const sql = neon(databaseUrl);
+// Supports both sql`SELECT ...` and sql('SELECT ...', [values]).
+export const sql: any = (...args: any[]) => (getClient() as any).apply(null, args);

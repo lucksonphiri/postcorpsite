@@ -1,0 +1,26 @@
+POSTCORP COMPLETE PROJECT - FIXED VERSION
+
+Changes completed:
+1. Restored the original administration/CMS layout and original Products upload design.
+2. Fixed Vercel Blob uploads by making /api/upload compatible with both:
+   - the original CMS field name: files
+   - the later Products form field name: file
+3. Upload responses now include urls, url, image_url and file_url for full compatibility.
+4. Added authenticated upload protection.
+5. Added clear errors when BLOB_READ_WRITE_TOKEN is missing.
+6. Limited server uploads to 4 MB for reliable Vercel serverless uploads.
+7. Fixed the Vercel build failure caused by DATABASE_URL being checked during build import.
+   DATABASE_URL is now checked only when a database operation actually runs.
+8. Restored the dynamic admin catch-all route so all CMS modules work again.
+9. Corrected CMS/database field mismatches for slides, clients, vacancies and branches.
+10. Added gallery_images to the database schema for the current Gallery implementation.
+11. Added authentication checks to content creation and retrieval APIs.
+12. Removed the CSS build warning.
+13. Successfully tested with npm run build.
+
+Important Vercel variables:
+DATABASE_URL
+JWT_SECRET
+BLOB_READ_WRITE_TOKEN
+
+After adding or changing variables, redeploy the project.

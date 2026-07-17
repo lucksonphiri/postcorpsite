@@ -16,3 +16,5 @@ CREATE TABLE IF NOT EXISTS enquiries(id SERIAL PRIMARY KEY,name TEXT NOT NULL,em
 CREATE TABLE IF NOT EXISTS audit_logs(id BIGSERIAL PRIMARY KEY,user_id INT REFERENCES users(id),action TEXT NOT NULL,module_name TEXT,record_id TEXT,details JSONB,created_at TIMESTAMPTZ DEFAULT NOW());
 
 ALTER TABLE products ADD COLUMN IF NOT EXISTS gallery_urls TEXT;
+
+CREATE TABLE IF NOT EXISTS gallery_images(id SERIAL PRIMARY KEY,title TEXT NOT NULL,description TEXT,caption TEXT,album TEXT,category TEXT,image_url TEXT NOT NULL,display_order INT DEFAULT 0,is_active BOOLEAN DEFAULT TRUE,status TEXT DEFAULT 'published',created_at TIMESTAMPTZ DEFAULT NOW(),updated_at TIMESTAMPTZ DEFAULT NOW());
