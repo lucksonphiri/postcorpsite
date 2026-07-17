@@ -14,14 +14,14 @@ const branches = [
   },
   {
     name: 'Masvingo',
-    address: '286 Fort Victoria Hughes Street, Masvingo, Zimbabwe',
+    address: '286 ED Mnangagwa Road, Masvingo, Zimbabwe',
     phones: ['+263 77 152 9898', '+263 77 563 0405'],
     email: 'masvingosales@postcorpglass.co.zw',
     map: 'https://www.google.com/maps/search/?api=1&query=286+Fort+Victoria+Hughes+Street+Masvingo+Zimbabwe',
   },
   {
     name: 'Bulawayo',
-    address: '17 Steelworks Road, Belmont, Bulawayo, Zimbabwe',
+    address: '41 Herbert Chitepo Road, Bulawayo, Zimbabwe',
     phones: ['+263 78 722 2324', '+263 78 825 3089'],
     email: 'bulawayosales@postcorpglass.co.zw',
     map: 'https://www.google.com/maps/search/?api=1&query=17+Steelworks+Road+Belmont+Bulawayo+Zimbabwe',

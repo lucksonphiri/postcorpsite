@@ -1234,3 +1234,405 @@ body.postcorp-mobile-menu-open .postcorp-chatbot-root{
     padding: 10px;
   }
 }
+
+/* =========================================================
+   GALLERY PAGE HERO
+========================================================= */
+
+.gallery-page-hero {
+  position: relative;
+  display: flex;
+  min-height: 460px;
+  align-items: center;
+  overflow: hidden;
+  color: #ffffff;
+  background: #343a40;
+}
+
+.gallery-page-hero-background {
+  position: absolute;
+  inset: -3%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: scale(1.03);
+  animation: galleryHeroZoom 10s ease-out both;
+}
+
+.gallery-page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(23, 28, 32, 0.94) 0%,
+      rgba(36, 41, 46, 0.7) 50%,
+      rgba(36, 41, 46, 0.35) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(12, 15, 18, 0.45),
+      transparent 52%
+    );
+}
+
+.gallery-page-hero-decoration {
+  position: absolute;
+  top: -90px;
+  right: -80px;
+  width: 330px;
+  height: 330px;
+  border: 38px solid rgba(237, 28, 36, 0.18);
+  border-radius: 50%;
+}
+
+.gallery-page-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: 460px;
+  align-items: center;
+}
+
+.gallery-page-hero-text {
+  max-width: 790px;
+  animation: galleryHeroText 0.8s ease both;
+}
+
+.gallery-page-hero-text .eyebrow {
+  display: block;
+  margin-bottom: 13px;
+  color: #ff5b61;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.gallery-page-hero-text h1 {
+  margin: 0 0 20px;
+  color: #ffffff;
+  font-size: clamp(50px, 7vw, 84px);
+  font-weight: 900;
+  line-height: 0.98;
+}
+
+.gallery-page-hero-text p {
+  max-width: 740px;
+  margin: 0;
+  color: #f1f3f5;
+  font-size: 19px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   GALLERY FILTERS
+========================================================= */
+
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.gallery-filters button {
+  min-height: 42px;
+  padding: 9px 18px;
+  color: #343a40;
+  background: #ffffff;
+  border: 1px solid #d9dde1;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.gallery-filters button:hover,
+.gallery-filters button.active {
+  color: #ffffff;
+  background: #ed1c24;
+  border-color: #ed1c24;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   GALLERY GRID
+========================================================= */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  padding: 0;
+  background: #343a40;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.13);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.08);
+}
+
+.gallery-card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(12, 15, 18, 0.05) 0%,
+      rgba(18, 22, 26, 0.24) 38%,
+      rgba(18, 22, 26, 0.92) 100%
+    );
+}
+
+.gallery-card-overlay > svg {
+  align-self: flex-end;
+  padding: 8px;
+  background: rgba(237, 28, 36, 0.9);
+  border-radius: 50%;
+  box-sizing: content-box;
+}
+
+.gallery-card-text h3 {
+  margin: 0 0 7px;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.gallery-card-text p {
+  margin: 0 0 8px;
+  color: #e7eaed;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.gallery-card-text span {
+  display: inline-block;
+  color: #ff6b70;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   GALLERY LIGHTBOX
+========================================================= */
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+  padding: 30px;
+  background: rgba(13, 16, 19, 0.94);
+  backdrop-filter: blur(7px);
+}
+
+.gallery-lightbox-content {
+  overflow: hidden;
+  width: min(1050px, 94vw);
+  max-height: 90vh;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
+  animation: galleryLightboxOpen 0.25s ease both;
+}
+
+.gallery-lightbox-content img {
+  width: 100%;
+  max-height: 74vh;
+  object-fit: contain;
+  background: #20252a;
+}
+
+.gallery-lightbox-caption {
+  padding: 18px 22px 21px;
+}
+
+.gallery-lightbox-caption h3 {
+  margin: 0 0 7px;
+  color: #26313a;
+  font-size: 23px;
+}
+
+.gallery-lightbox-caption p {
+  margin: 0 0 8px;
+  color: #59616a;
+  line-height: 1.55;
+}
+
+.gallery-lightbox-caption span {
+  color: #ed1c24;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.gallery-lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100000;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  padding: 0;
+  color: #ffffff;
+  background: #ed1c24;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 12px 30px rgba(237, 28, 36, 0.35);
+  cursor: pointer;
+}
+
+.gallery-empty-state {
+  padding: 42px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 13px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07);
+}
+
+.gallery-empty-state h2 {
+  margin-top: 0;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes galleryHeroZoom {
+  from {
+    transform: scale(1.03);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes galleryHeroText {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes galleryLightboxOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery-page-hero,
+  .gallery-page-hero-content {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-page-hero,
+  .gallery-page-hero-content {
+    min-height: 370px;
+  }
+
+  .gallery-page-hero-content {
+    align-items: flex-end;
+    padding-bottom: 55px;
+  }
+
+  .gallery-page-hero-text h1 {
+    font-size: 52px;
+  }
+
+  .gallery-page-hero-text p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-card {
+    min-height: 280px;
+  }
+
+  .gallery-card img {
+    height: 290px;
+  }
+
+  .gallery-lightbox {
+    padding: 10px;
+  }
+
+  .gallery-lightbox-content {
+    width: 100%;
+    max-height: 92vh;
+  }
+
+  .gallery-lightbox-close {
+    top: 12px;
+    right: 12px;
+  }
+}

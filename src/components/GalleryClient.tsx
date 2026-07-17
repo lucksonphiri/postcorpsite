@@ -71,18 +71,22 @@ export default function GalleryClient({
               alt={
                 image.title ||
                 image.caption ||
-                "Postcorp gallery installation"
+                "Postcorp glass and aluminium project"
               }
             />
 
             <div className="gallery-card-overlay">
-              <ZoomIn size={26} />
+              <ZoomIn size={28} />
 
-              <div>
+              <div className="gallery-card-text">
                 <h3>{image.title || "Postcorp Project"}</h3>
 
                 {(image.caption || image.description) && (
                   <p>{image.caption || image.description}</p>
+                )}
+
+                {(image.album || image.category) && (
+                  <span>{image.album || image.category}</span>
                 )}
               </div>
             </div>
@@ -95,6 +99,7 @@ export default function GalleryClient({
           className="gallery-lightbox"
           role="dialog"
           aria-modal="true"
+          aria-label={selectedImage.title || "Gallery image"}
           onClick={() => setSelectedImage(null)}
         >
           <button
@@ -126,6 +131,12 @@ export default function GalleryClient({
                 <p>
                   {selectedImage.caption || selectedImage.description}
                 </p>
+              )}
+
+              {(selectedImage.album || selectedImage.category) && (
+                <span>
+                  {selectedImage.album || selectedImage.category}
+                </span>
               )}
             </div>
           </div>

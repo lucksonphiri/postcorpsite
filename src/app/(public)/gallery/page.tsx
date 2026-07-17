@@ -42,22 +42,31 @@ export default async function GalleryPage() {
 
   return (
     <main>
-      <section
-        className="page-hero"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(30,35,40,.72), rgba(30,35,40,.72)), url('/images/gallery-hero.jpg')",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      >
-        <div className="container">
-          <div className="eyebrow">Our Work</div>
-          <h1>Gallery</h1>
-          <p>
-            Explore selected aluminium, glass and shopfitting installations
-            completed by Postcorp.
-          </p>
+      <section className="gallery-page-hero">
+        <div
+          className="gallery-page-hero-background"
+          style={{
+            backgroundImage: "url('/images/gallery-hero.jpg')",
+          }}
+        />
+
+        <div className="gallery-page-hero-overlay" />
+
+        <div className="gallery-page-hero-decoration" />
+
+        <div className="container gallery-page-hero-content">
+          <div className="gallery-page-hero-text">
+            <span className="eyebrow">Our Portfolio</span>
+
+            <h1>Gallery</h1>
+
+            <p>
+              Explore selected aluminium, glass, glazing and shopfitting
+              projects completed by Postcorp across Zimbabwe. Every
+              installation reflects our commitment to quality workmanship,
+              innovation and customer satisfaction.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -66,11 +75,12 @@ export default async function GalleryPage() {
           {images.length > 0 ? (
             <GalleryClient images={images} />
           ) : (
-            <div className="admin-card">
+            <div className="gallery-empty-state">
               <h2>No gallery images published yet</h2>
+
               <p>
-                Add an image from Administration → Gallery and ensure its status
-                is Published.
+                Add images from Administration → Gallery and make sure the
+                content status is set to Published.
               </p>
             </div>
           )}
