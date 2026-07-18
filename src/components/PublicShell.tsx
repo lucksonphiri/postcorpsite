@@ -114,7 +114,7 @@ export default function PublicShell({ children }: { children: React.ReactNode })
             <div>
               <img className="footer-logo" src="/images/logo.png" alt="Postcorp" />
               <p>
-                Guaranteed quality at the best price and the best advice.
+                Guaranteed quality at best price and the best advice.
                 Professional glass, aluminium and shopfitting solutions.
               </p>
             </div>
