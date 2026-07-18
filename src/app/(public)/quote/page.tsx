@@ -1,1 +1,81 @@
-'use client';import PageHero from '@/components/PageHero';import {useState} from 'react';export default function Page(){const[done,setDone]=useState(false);async function submit(e:any){e.preventDefault();const data=Object.fromEntries(new FormData(e.currentTarget));const r=await fetch('/api/quotes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});if(r.ok){setDone(true);e.currentTarget.reset()}}return <main><PageHero title="Request a Quote" text="Tell us about your project and our team will contact you."/><section className="section"><div className="container two-col"><form className="form admin-card" onSubmit={submit}>{done&&<div className="notice">Thank you. Your quotation request has been received.</div>}<input className="input" name="name" required placeholder="Full name"/><input className="input" name="company" placeholder="Company or organisation"/><input className="input" name="phone" required placeholder="Phone number"/><input className="input" name="email" type="email" placeholder="Email address"/><input className="input" name="location" placeholder="Project location"/><select name="service"><option value="">Select service</option><option>Aluminium windows and doors</option><option>Shopfronts</option><option>Shower cubicles</option><option>Glazing</option><option>Partitions and ceilings</option><option>Kitchens and BICs</option><option>Other</option></select><textarea name="message" required placeholder="Project description, approximate measurements and preferred completion date"/><button className="btn btn-red">Submit Request</button></form><div><div className="eyebrow">What happens next?</div><h2 className="section-title">A practical response from an experienced team.</h2><p>We review your requirements, contact you for any missing details and arrange measurements or a site visit where necessary.</p><p>You may also call Harare on +263 77 295 7823, Masvingo on +263 77 152 9898 or Bulawayo on +263 78 722 2324.</p></div></div></section></main>}
+import QuoteForm from "@/components/QuoteForm";
+
+export const metadata = {
+  title:
+    "Request a Quote | Postcorp Glass & Aluminium",
+  description:
+    "Request a quotation for Postcorp glass, aluminium and shopfitting services.",
+};
+
+export default function QuotePage() {
+  return (
+    <main>
+      <section
+        className="page-hero quote-page-hero"
+      >
+        <div className="container">
+          <p className="eyebrow">
+            Start your project
+          </p>
+
+          <h1>
+            Request a Quote
+          </h1>
+
+          <p>
+            Tell us about your project and
+            a Postcorp representative will
+            contact you.
+          </p>
+        </div>
+      </section>
+
+      <section className="section section-grey">
+        <div className="container">
+          <div className="quote-page-grid">
+            <div>
+              <p className="eyebrow">
+                Project enquiry
+              </p>
+
+              <h2 className="section-title">
+                Let us understand your requirements
+              </h2>
+
+              <div className="redline" />
+
+              <p>
+                Provide your contact details,
+                preferred service, project location
+                and any approximate measurements
+                available.
+              </p>
+
+              <div className="quote-contact-card">
+                <strong>
+                  Need immediate assistance?
+                </strong>
+
+                <p>
+                  Call or WhatsApp:
+                  {" "}
+                  +263 77 295 7823
+                </p>
+
+                <p>
+                  Email:
+                  {" "}
+                  sales@postcorpglass.co.zw
+                </p>
+              </div>
+            </div>
+
+            <div className="quote-form-card">
+              <QuoteForm />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
