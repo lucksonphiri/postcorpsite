@@ -27,7 +27,7 @@ const branches = [
     map: 'https://www.google.com/maps/search/?api=1&query=17+Steelworks+Road+Belmont+Bulawayo+Zimbabwe',
   },
 ];
-
+import EnquiryForm from "@/components/EnquiryForm";
 export default function Page() {
   const [done, setDone] = useState(false);
 
@@ -134,15 +134,9 @@ export default function Page() {
             </div>
           </div>
 
-          <form className="form admin-card contact-form-card" onSubmit={submit}>
-            {done && <div className="notice">Your enquiry has been sent successfully.</div>}
-            <input className="input" name="name" required placeholder="Full name" />
-            <input className="input" name="email" type="email" placeholder="Email address" />
-            <input className="input" name="phone" required placeholder="Phone number" />
-            <input className="input" name="subject" placeholder="Subject" />
-            <textarea name="message" required placeholder="How can we help?" />
-            <button className="btn btn-red">Send Enquiry</button>
-          </form>
+       <div className="contact-form-card">
+  <EnquiryForm />
+</div>
         </div>
       </section>
     </main>

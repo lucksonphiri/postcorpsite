@@ -2277,3 +2277,158 @@ body.postcorp-mobile-menu-open .postcorp-chatbot-root{
     min-height: 155px;
   }
 }
+
+/* =====================================================
+   CONTACT ENQUIRY FORM
+===================================================== */
+
+.contact-enquiry-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 0.9fr)
+    minmax(0, 1.1fr);
+  gap: 55px;
+  align-items: start;
+}
+
+.contact-form-card {
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #e2e6e9;
+  border-radius: 14px;
+  box-shadow:
+    0 18px 55px
+    rgba(0, 0, 0, 0.08);
+}
+
+.contact-enquiry-form {
+  display: grid;
+  gap: 18px;
+}
+
+.contact-enquiry-form input,
+.contact-enquiry-form textarea {
+  width: 100%;
+  padding: 16px 17px;
+  color: #26313a;
+  background: #ffffff;
+  border: 1px solid #d7dde1;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 16px;
+  outline: none;
+}
+
+.contact-enquiry-form input {
+  min-height: 58px;
+}
+
+.contact-enquiry-form textarea {
+  min-height: 170px;
+  resize: vertical;
+}
+
+.contact-enquiry-form input:focus,
+.contact-enquiry-form textarea:focus {
+  border-color: #ed1c24;
+  box-shadow:
+    0 0 0 4px
+    rgba(237, 28, 36, 0.11);
+}
+
+.contact-enquiry-form button {
+  min-height: 60px;
+  padding: 15px 22px;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      #ed1c24,
+      #c9151c
+    );
+  border: 0;
+  border-radius: 10px;
+  box-shadow:
+    0 13px 28px
+    rgba(237, 28, 36, 0.24);
+  font: inherit;
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.contact-enquiry-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.contact-form-message {
+  padding: 16px 18px;
+  border-radius: 9px;
+  line-height: 1.6;
+}
+
+.contact-form-message p {
+  margin: 5px 0 0;
+}
+
+.contact-form-message.success {
+  color: #14532d;
+  background: #ecfdf3;
+  border: 1px solid #bbf7d0;
+}
+
+.contact-form-message.error {
+  color: #991b1b;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+}
+
+.contact-office-card {
+  display: grid;
+  gap: 7px;
+  margin-top: 28px;
+  padding: 22px;
+  background: #ffffff;
+  border-left: 5px solid #ed1c24;
+  border-radius: 9px;
+  box-shadow:
+    0 14px 38px
+    rgba(0, 0, 0, 0.08);
+}
+
+.contact-office-card strong {
+  color: #26313a;
+  font-size: 17px;
+}
+
+.contact-office-card a {
+  color: #4f5962;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+@media (max-width: 850px) {
+  .contact-enquiry-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-form-card {
+    padding: 18px;
+  }
+
+  .contact-enquiry-form {
+    gap: 14px;
+  }
+
+  .contact-enquiry-form input {
+    min-height: 53px;
+  }
+
+  .contact-enquiry-form textarea {
+    min-height: 155px;
+  }
+}
