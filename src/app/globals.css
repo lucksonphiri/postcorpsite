@@ -2432,3 +2432,37 @@ body.postcorp-mobile-menu-open .postcorp-chatbot-root{
     min-height: 155px;
   }
 }
+
+
+
+.clients-text{
+    font-size:1.35rem;
+    color:#374151;
+    margin:2rem 0 1.5rem;
+}
+
+.clients-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.clients-list li{
+    background:#f3f4f6;
+    color:#111827;
+    padding:12px 20px;
+    border-radius:999px;
+    font-size:1rem;
+    font-weight:500;
+    border:1px solid #e5e7eb;
+    transition:all .25s ease;
+}
+
+.clients-list li:hover{
+    background:#111827;
+    color:#fff;
+    transform:translateY(-2px);
+}
