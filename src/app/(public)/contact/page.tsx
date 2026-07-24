@@ -99,6 +99,10 @@ export default function Page() {
                     <Clock3 size={19} />
                     <p>Monday to Friday, 08:00–17:00</p>
                   </div>
+                  <div>
+                    <Clock3 size={19} />
+                    <p>Saturdays, 08:00–15:00</p>
+                  </div>
                 </div>
 
                 <a
